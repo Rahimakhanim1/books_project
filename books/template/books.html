@@ -1,0 +1,63 @@
+{% extends 'partials/_base.html'%}
+{% load static %}
+{% block content %}
+          <div class="details">
+              <p><strong>Tags:</strong>
+                {% for tag in tags %}
+                    <a href="{% url 'books-by-tag' tag.slug %}"><span class="badge bg-secondary">{{ tag }} {{ tag.get_books_with_tag_count}}</span></a>
+                {% endfor %}
+              </p>
+
+              <p><strong>Categories:</strong> 
+                {% for category in categories%}
+                <a href="{% url 'books-by-category' category.slug %}"><span class="badge bg-primary">{{ category.category_name }} {{ category.get_books_with_category_count}}</span></a>
+                {% endfor %}
+              </p>
+
+              <p><strong>Authors:</strong> 
+                {% for author in authors %}
+                <a href="{% url 'books-by-author' author.slug%}"><span class="badge bg-success">{{ author.author_name }} {{author.get_books_count}}</span></a>
+                {% endfor %}
+              </p>
+
+
+        </div>
+        <div class="all-books">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Yazıçı</th>
+                    <th scope="col">Qiymət</th>
+                    <th scope="col">Buraxılış ili</th>
+                    <th scope="col">Satışda var</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  {% for book in books %}
+                    <tr>
+                      <th scope="row">{{book.id}}</th>
+                      <td><a href="{% url 'book-detail' book.id%}" class="link-item">{{book.title}}</a></td>
+                      <td>{{book.author}}</td>
+                      <td>{{book.price}}AZN</td>
+                      <td>{{book.publisher_date}}</td>
+                      <td>{% if book.on_sale %}<i class="fas fa-check" style="color:green;border:1px solid green;border-radius:2px;"></i>{% else %}<i class="fa fa-times-circle" style="color:red;border:1px solid red;border-radius:2px;"></i> {% endif %}</td>
+                      {% if request.user.is_superuser%}
+                      <td><a href="{% url 'update_book' book.id %}" class="btn btn-primary">Düzəlt</a></td>
+                      <td><a href="{% url 'delete_book' book.id %}" class="btn btn-danger">Silmək</a></td>
+                      {% else %}
+                      <td>Admin deyise biler</td>
+                      <td>Admin deyise biler</td>
+                      {%endif%}
+                    </tr>
+                  {% endfor %}
+                
+                 
+                </tbody>
+              </table>
+        </div>
+        
+{% endblock %}

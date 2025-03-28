@@ -1,0 +1,53 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="row g-0">
+            <!-- Book Image -->
+            <div class="col-md-4">
+                <img src="{{ book.img.url }}" class="img-fluid rounded-start" alt="{{ book.title }}">
+            </div>
+            <!-- Book Details -->
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">{{ book.title }}</h2>
+                    <h5 class="text-muted">by {{ book.author }}</h5>
+                    <p><strong>Published Year:</strong> {{ book.publish_year }}</p>
+                    <p><strong>Categories:</strong> 
+                      
+                            <span class="badge bg-primary">{{ book_category }}</span>
+                    
+                    </p>
+                    <p><strong>Price:</strong> 
+                        {% if book.on_sale %}
+                            <span class="text-danger">${{ book.price }}</span> <span class="badge bg-success">On Sale</span>
+                        {% else %}
+                            <span>${{ book.price }}</span>
+                        {% endif %}
+                    </p>
+                    <p><strong>Description:</strong> {{ book.description }}</p>
+
+                    <!-- Tags -->
+                    <p><strong>Tags:</strong>
+                        {% for tag in book_tags %}
+                            <span class="badge bg-secondary">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+
+         
+
+                    {% if request.user.is_superuser%}
+                    <a href="{% url 'update_book' book.id %}" class="btn btn-primary">Düzəlt</a>
+                    <a href="{% url 'delete_book' book.id %}" class="btn btn-danger">Silmək</a>
+                    {% else %}
+                    Admin deyise biler
+                    Admin deyise biler
+                    {%endif%}
+                    <a href="{% url 'book_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

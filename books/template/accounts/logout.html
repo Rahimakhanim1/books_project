@@ -1,0 +1,12 @@
+{% extends 'partials/_base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="text-center">
+        <h3>Siz sistemdən çıxış etdiniz.</h3>
+        <a href="{% url 'login' %}" class="btn btn-primary mt-3">Yenidən Daxil Ol</a>
+    </div>
+</div>
+
+{% endblock %}
