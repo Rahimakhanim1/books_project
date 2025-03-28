@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-x*5yvxdcs&-8=-epg0#21x(2ce*y*0cb%gpfg2^meor#0%x=zf
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*'
+    'books_project.onrender.com',
 ]
 
 
